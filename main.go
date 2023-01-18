@@ -20,9 +20,5 @@ func main() {
 	protected.Use(middlewares.JwtAuthMiddleware())
 	protected.GET("/user", controller.CurrentUser)
 
-	err := r.Run(":8080")
-	if err != nil {
-		return
-	}
-
+	r.Run(":8080")
 }

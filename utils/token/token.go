@@ -46,8 +46,8 @@ func ExtractToken(c *gin.Context) string {
 		return token
 	}
 	bearerToken := c.Request.Header.Get("Authorization")
-	if len(strings.Split(bearerToken, "")) == 2 {
-		return strings.Split(bearerToken, "")[1]
+	if len(strings.Split(bearerToken, " ")) == 2 {
+		return strings.Split(bearerToken, " ")[1]
 	}
 	return ""
 }
