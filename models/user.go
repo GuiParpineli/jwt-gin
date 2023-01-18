@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"html"
@@ -62,4 +63,21 @@ func (u *User) BeforeSave() error {
 	u.Password = string(hashedPassword)
 	u.Username = html.EscapeString(strings.TrimSpace(u.Username))
 	return nil
+}
+func GetUserByID(uid uint) (User, error) {
+
+	var u User
+
+	if err := DB.First(&u, uid).Error; err != nil {
+		return u, errors.New("User not found!")
+	}
+
+	u.PrepareGive()
+
+	return u, nil
+
+}
+
+func (u *User) PrepareGive() {
+	u.Password = ""
 }
